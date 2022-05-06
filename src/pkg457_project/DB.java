@@ -2,23 +2,14 @@ package pkg457_project;
 
 import java.sql.*;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author killua
- */
 public class DB {
     Statement stmt;
     
     public DB(){
-        getConnection();
+        setConnection();
     }
     
-    public void getConnection(){
+    public void setConnection(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
         }catch(ClassNotFoundException e){
@@ -39,15 +30,55 @@ public class DB {
             System.out.println(e);
         }
     }
-
-    public ResultSet makeQuery(){
+    
+   
+    
+    public ResultSet getEmployee(){
         try{
             
-            ResultSet rs = stmt.executeQuery("select * from mpierc9db.EMPLOYEE");
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Employee order by mpierc9db.Employee.LName");
             return rs;
             
         }catch(SQLException e){
-            System.out.println("makequery error");
+            System.out.println(e);
+            return null;
+        }
+    }
+    
+    
+    public ResultSet getPatient(){
+        try{
+            
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Patient");
+            return rs;
+            
+        }catch(SQLException e){
+            System.out.println(e);
+            return null;
+        }
+    }
+    
+    
+    public ResultSet getVendor(){
+        try{
+            
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Vendor");
+            return rs;
+            
+        }catch(SQLException e){
+            System.out.println(e);
+            return null;
+        }
+    }
+    
+    
+    public ResultSet getClient(){
+        try{
+            
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Client");
+            return rs;
+            
+        }catch(SQLException e){
             System.out.println(e);
             return null;
         }

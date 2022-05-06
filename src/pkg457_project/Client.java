@@ -1,72 +1,71 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package pkg457_project;
 
-
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.sql.*;
 
-/**
+
+/*
  *
- * @author killua
+ * this class makes the initial JFrame, with buttons that will
+ * make new JFrames 
+ * 
  */
+
+
 public class Client {
-    
-    /**
-     * @param args the command line arguments
-     */
     
     
     public static void main(String[] args) {
         
         DB database = new DB();
         
-        JFrame f; JTextField tf; JLabel l; JButton b; TextArea a;
+        JFrame f;
+        f=new JFrame("Towson Vet Database");  
         
-        f=new JFrame();
+        Icon icon = new ImageIcon("./logo.png");
+        JLabel logo = new JLabel(icon);
+        logo.setBounds(500, 100, 400,400);
+
         
-        tf=new JTextField();  
-        tf.setBounds(500,500, 150,20);  
         
-        l=new JLabel();  
-        l.setBounds(50,100, 250,20);      
-        
-        b=new JButton("Make Query");  
-        b.setBounds(500,700,150,30);  
-        
-        a = new TextArea();
-        a.setBounds(10,30, 500,500);
-        b.addActionListener((ActionEvent event) -> {
-            ResultSet rs = database.makeQuery();
-            try{
-                System.out.println("printing results");
-                while(rs.next()){
-                    String SSN = rs.getString("SSN");
-                    String FNAME = rs.getString("FNAME");
-                    String SEX = rs.getString("SEX");
-                    String SALARY = rs.getString("SALARY");                
-                    System.out.println("flag");
-                    System.out.println(SSN+",  "+FNAME+",  "+SEX+"  "+SALARY);
-                    a.append("\n"+SSN+",  "+FNAME+",  "+SEX+"  "+SALARY);
+        JButton employee=new JButton("List Employees");  
+        employee.setBounds(650,600,150,30);  
+        employee.addActionListener((ActionEvent event) -> {
+            ResultSet rs = database.getEmployee();
+            new ResultGUI(rs);
+        });
                 
-                }
-            }catch(SQLException e){
-                System.out.println("resGUI error");
-                System.out.println(e);
-            }
+                
+        JButton client=new JButton("List Clients");
+        client.setBounds(650,500,150,30);  
+        client.addActionListener((ActionEvent event) -> {
+            ResultSet rs = database.getClient();
+            new ResultGUI(rs);
         });  
         
         
-        f.add(a);f.add(b);f.add(tf);f.add(l);    
-        f.setSize(800,800);  
+        JButton patient=new JButton("List Patients");
+        patient.setBounds(300,500,150,30);  
+        patient.addActionListener((ActionEvent event) -> {
+            ResultSet rs = database.getPatient();
+            new ResultGUI(rs);
+        });  
+        
+        
+        JButton vendor=new JButton("List Vendors");
+        vendor.setBounds(300,600,150,30);  
+        vendor.addActionListener((ActionEvent event) -> {
+            ResultSet rs = database.getVendor();
+            new ResultGUI(rs);
+        });  
+
+  
+        f.add(logo);
+        f.add(employee);f.add(client);f.add(patient);f.add(vendor);    
+        f.setSize(1000,800);  
         f.setLayout(null);  
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
         f.setVisible(true);  
         
         

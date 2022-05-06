@@ -1,66 +1,74 @@
 package pkg457_project;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.UnknownHostException;
-import javax.swing.*;
+import java.awt.event.WindowEvent;
 import java.sql.*;
+import javax.swing.*;
 
-/**
- *
- * @author killua
- */
         
-public class ResultGUI extends Frame implements ActionListener{
-    ResultSet rs;
-    JTextField tf; JLabel l; JButton b; TextArea a;
+public class ResultGUI extends JFrame{
+    TextArea a; JButton b;
+    
     ResultGUI(ResultSet rs){
-        this.rs = rs;
-        tf=new JTextField();  
-        tf.setBounds(50,50, 150,20);  
+        a = new TextArea(); 
+        a.setBounds(10,30, 750,600);
         
-        l=new JLabel();  
-        l.setBounds(50,100, 250,20);      
+        b = new JButton("Clear Results");
+        b.setBounds(600, 700, 150, 30);
         
-        b=new JButton("Clear Results");  
-        b.setBounds(50,150,95,30);  
-        b.addActionListener(this);    
         
         try{
-            System.out.println("printing results");
+            int r = 1;
+            ResultSetMetaData rsMeta = rs.getMetaData();
+            String colNames = new String();
+            String entry = new String();
+            
             while(rs.next()){
-                String SSN = rs.getString("SSN");
-                String FNAME = rs.getString("FNAME");
-                String SEX = rs.getString("SEX");
-                String SALARY = rs.getString("SALARY");                
-                System.out.println("flag");
-                System.out.println(SSN+",  "+FNAME+",  "+SEX+"  "+SALARY);
-                l.setText(SSN+",  "+FNAME+",  "+SEX+"  "+SALARY);
-                
+                for(int i = 1; i < rsMeta.getColumnCount(); i++){
+                    if(i == 1){
+                        entry = entry + "\n"+rs.getString(i)+"\t";
+                        if(r == 1){
+                            colNames = colNames + rsMeta.getColumnName(i) + "\t";                        
+                        }
+                        
+                    }else if(rsMeta.getColumnCount()-1 == i){
+                        entry = entry + rs.getString(i);
+                        if(r == 1){
+                            colNames = colNames + rsMeta.getColumnName(i);                        
+                        }
+                        
+                    }else{
+                        entry = entry + rs.getString(i) + ",\t";
+                        if(r == 1){
+                            colNames = colNames + rsMeta.getColumnName(i) + "\t";                        
+                        }
+                    }
+                }
+                if(r == 1){
+                    a.append(colNames);                        
+                }
+                a.append(entry);
+                r++;
             }
+            a.setEditable(false);
         }catch(SQLException e){
             System.out.println("resGUI error");
             System.out.println(e);
         }
         
-        add(a);add(b);add(tf);add(l);    
-        setSize(800,400);  
+        add(a);
+        setSize(1000,800);  
         setLayout(null);  
+        
         setVisible(true);  
     }  
     
     @Override
-    public void actionPerformed(ActionEvent e) {  
-        try{  
-        String host=tf.getText();  
-        String ip=java.net.InetAddress.getByName(host).getHostAddress();  
-        l.setText("IP of "+host+" is: "+ip);  
-        }catch(UnknownHostException ex){System.out.println(ex);}  
-    }         
+    protected void processWindowEvent(WindowEvent e) {
+         if (e.getID() == (WindowEvent.WINDOW_CLOSING)) {
+            setVisible(false);
+        }
+    }
 }
