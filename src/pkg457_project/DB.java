@@ -1,6 +1,8 @@
 package pkg457_project;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DB {
     Statement stmt;
@@ -57,6 +59,17 @@ public class DB {
             return null;
         }
     }
+    public ResultSet getPatientNotes(){
+        try{
+            
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Patient");
+            return rs;
+            
+        }catch(SQLException e){
+            System.out.println(e);
+            return null;
+        }
+    }
     
     
     public ResultSet getVendor(){
@@ -81,6 +94,15 @@ public class DB {
         }catch(SQLException e){
             System.out.println(e);
             return null;
+        }
+    }
+    public void insertData(String table){}
+    public void deleteData(String table, String id, String col_name){ //col_name is supposed to be the column where the id is held
+        try{
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db."+table+" where "+col_name+" = "+ id);
+            
+        }catch(SQLException e){
+            System.out.println(e);
         }
     }
 }
