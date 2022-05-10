@@ -16,8 +16,8 @@ import javax.swing.JTextField;
  */
 public class AddPatientGUI extends JFrame {
 
-    private JLabel pid, name, breed, dob, notes;
-    private JTextField pidF, nameF, breedF, dobF, notesF;
+    private JLabel pid, name, breed, dob, notes, owner;
+    private JTextField pidF, nameF, breedF, dobF, notesF, ownerF;
     private JButton submit, exit;
     
     public AddPatientGUI() {
@@ -27,13 +27,14 @@ public class AddPatientGUI extends JFrame {
         breed = new JLabel("Breed:");        breed.setBounds(20,180, 100,30);
         dob = new JLabel("DOB:");        dob.setBounds(20,220, 100,30);
         notes = new JLabel("Notes:");      notes.setBounds(20,260, 100,30);
-
+        owner = new JLabel("Owner ID:");    owner.setBounds(20,300, 100, 30);
+        
         pidF = new JTextField();    pidF.setBounds(200,20, 100,30);
         nameF = new JTextField();  nameF.setBounds(200,60, 100,30);
         breedF = new JTextField();   breedF.setBounds(200,180, 100,30);
         dobF = new JTextField("YYYY-MM-DD");    dobF.setBounds(200,220, 100,30);
         notesF = new JTextField();  notesF.setBounds(200,260, 100,30);
-        
+        ownerF = new JTextField(); ownerF.setBounds(200, 300, 100, 30);
         
         submit = new JButton("Submit");
         submit.setBounds(300,500,150,30);  
@@ -44,11 +45,13 @@ public class AddPatientGUI extends JFrame {
             String b  = breedF.getText();
             String d = dobF.getText();
             String no = notesF.getText();
+            String c = ownerF.getText();
             
             DB database = new DB();
-            database.addPatient(p, n, b, d, no);
+            database.addPatient(p, n, b, d, no, c);
             dispose();
-            new ResultGUI(database.getPatient());            
+            new ResultGUI(database.getPatient());   
+            new ResultGUI(database.getOwns());
         });
         
         exit = new JButton("Exit");

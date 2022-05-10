@@ -20,17 +20,8 @@ public class AddGUI{
             case "Employee" -> {
                 new AddEmployeeGUI();
             }
-            case "Service" -> {
-                new AddServiceGUI();
-            }
             case "Contracts" -> {
                 new AddContractsGUI();
-            }
-            case "Owns" -> {
-                new AddOwnsGUI();
-            }
-            case "Office" -> {
-                new AddOfficeGUI();
             }
             case "Patient" -> {
                 new AddPatientGUI();
@@ -41,20 +32,11 @@ public class AddGUI{
             case "CheckIn" -> {
                 new AddCheckInGUI();
             }
-            case "Bills" -> {
-                new AddBillsGUI();
-            }
             case "Administers" -> {
-                new AddAdministersGUI();
+                new AddAdministerGUI();
             }
             case "Vendor" -> {
                 new AddVendorGUI();
-            }
-            case "WorksFor" -> {
-                new AddWorksForGUI();
-            }
-            case "Department" -> {
-                new AddDepartmentGUI();
             }
             default -> {
             }

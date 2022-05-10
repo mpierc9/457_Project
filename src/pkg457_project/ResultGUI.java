@@ -39,6 +39,8 @@ public class ResultGUI extends JFrame{
         dcon.addActionListener((ActionEvent ev) -> {
                 DB database = new DB();
                 database.deleteData(s,  col, del.getText());
+                dispose();
+                
         });
         add(delL); add(del);add(dcon);
         del.setVisible(false);
@@ -50,7 +52,7 @@ public class ResultGUI extends JFrame{
             del.setVisible(true);
             delL.setVisible(true);
             dcon.setVisible(true);
-
+            
         });
         
         e = new JButton("Exit");

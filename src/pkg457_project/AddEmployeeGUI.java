@@ -14,8 +14,8 @@ import javax.swing.*;
  */
 public class AddEmployeeGUI extends JFrame {
 
-    private JLabel ssn, fName, lName, sex, phone, street, city, start, dob, pay;
-    private JTextField ssnF, fNameF, lNameF, sexF, phoneF, streetF, cityF, startF, dobF, payF;
+    private JLabel ssn, fName, lName, sex, phone, street, city, start, dob, pay, dept;
+    private JTextField ssnF, fNameF, lNameF, sexF, phoneF, streetF, cityF, startF, dobF, payF, deptF;
     private JButton submit, exit;
     
     public AddEmployeeGUI() {
@@ -30,6 +30,7 @@ public class AddEmployeeGUI extends JFrame {
         start = new JLabel("Start:");        start.setBounds(20,300, 100,30);
         dob = new JLabel("DOB:");            dob.setBounds(20,340, 100,30);
         pay = new JLabel("Pay Rate:");       pay.setBounds(20,380, 100,30);
+        dept = new JLabel("Department:");    dept.setBounds(20,420,100,30);
         
         ssnF = new JTextField();    ssnF.setBounds(200,20, 100,30);
         fNameF = new JTextField();  fNameF.setBounds(200,60, 100,30);
@@ -41,27 +42,29 @@ public class AddEmployeeGUI extends JFrame {
         startF = new JTextField();  startF.setBounds(200,300, 100,30);
         dobF = new JTextField("YYYY-MM-DD");    dobF.setBounds(200,340, 100,30);
         payF = new JTextField();    payF.setBounds(200,380, 100,30);
-        
+        deptF = new JTextField();   deptF.setBounds(200,420,100,30);
         
         submit = new JButton("Submit");
         submit.setBounds(300,500,150,30);  
         submit.addActionListener((ActionEvent event) -> {
             //implement
-            String s = ssn.getText();
-            String fn = fName.getText();
-            String ln = lName.getText();
-            String se = sex.getText();
-            String ph = phone.getText();
-            String st = street.getText();
-            String ci = city.getText();
-            String sta = start.getText();
-            String dat = dob.getText();
-            double p = Double.parseDouble(pay.getText());
+            String s = ssnF.getText();
+            String fn = fNameF.getText();
+            String ln = lNameF.getText();
+            String se = sexF.getText();
+            String ph = phoneF.getText();
+            String st = streetF.getText();
+            String ci = cityF.getText();
+            String sta = startF.getText();
+            String dat = dobF.getText();
+            String dep = deptF.getText();
+            double p = Double.parseDouble(payF.getText());
             
             DB database = new DB();
-            database.addEmployee(s, fn, ln, se, ph, st, ci, sta, dat, p);
+            database.addEmployee(s, fn, ln, se, ph, st, ci, sta, dat, p, dep);
             dispose();
             new ResultGUI(database.getEmployee());
+            new ResultGUI(database.getDepartment());
         });
         
         exit = new JButton("Exit");
