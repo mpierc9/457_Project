@@ -26,7 +26,7 @@ public class DB {
         try{
             Connection con = DriverManager.getConnection(SERVER, ID, PW);
             this.stmt = con.createStatement();
-                    
+            
             
         }catch(SQLException e){
             System.out.println(e);
@@ -38,7 +38,7 @@ public class DB {
     public ResultSet getEmployee(){
         try{
             
-            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Employee order by mpierc9db.Employee.LName");
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Employee order by lname");
             return rs;
             
         }catch(SQLException e){
@@ -47,16 +47,35 @@ public class DB {
         }
     }
     
+    public void addEmployee(String s,String fn,String ln,String se,String ph,String st,String ci,String sta,String dat,double p){
+        try{
+            stmt.executeUpdate("insert into mpierc9db.Employee values(\""+s+"\", \""+fn+"\", \""+ln+"\", \""+se+"\", \""+ph+"\", \""+
+                                        st+"\", \""+ci+"\", \""+sta+"\", \""+dat+"\", "+p+");");
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        
+    }
+    
     
     public ResultSet getPatient(){
         try{
             
-            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Patient");
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Patient order by p_id");
             return rs;
             
         }catch(SQLException e){
             System.out.println(e);
             return null;
+        }
+    }
+    public void addPatient(String p, String  n, String  b, String  d, String  no){
+        //implement
+        try{
+            stmt.executeUpdate("insert into mpierc9db.Patient values(\""+p+"\", \""+n+"\", \""+b
+                            +"\", \""+d+"\", \""+no +"\");");
+        }catch(SQLException e){
+            System.out.println(e);
         }
     }
     public ResultSet getPatientNotes(){
@@ -75,7 +94,7 @@ public class DB {
     public ResultSet getVendor(){
         try{
             
-            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Vendor");
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Vendor order by v_id");
             return rs;
             
         }catch(SQLException e){
@@ -83,12 +102,20 @@ public class DB {
             return null;
         }
     }
-    
+    public void addVendor(String v, String  n, String t, String  ph,String  em,String  st,String  ci){
+        //implement
+        try{
+            stmt.executeUpdate("insert into mpierc9db.Vendor values(\""+v+"\", \""+n+"\",  \""+t
+                            +"\", \""+ph+"\", \""+em+"\", \""+st+"\", \""+ci +"\");");
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
     
     public ResultSet getClient(){
         try{
             
-            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Client");
+            ResultSet rs = stmt.executeQuery("select * from mpierc9db.Client order by lname");
             return rs;
             
         }catch(SQLException e){
@@ -96,13 +123,25 @@ public class DB {
             return null;
         }
     }
-    public void insertData(String table){}
-    public void deleteData(String table, String id, String col_name){ //col_name is supposed to be the column where the id is held
+    
+    public void addClient(String c, String  fn, String ln,String  ph,String  em,String  st,String  ci){
+        //implement
         try{
-            ResultSet rs = stmt.executeQuery("select * from mpierc9db."+table+" where "+col_name+" = "+ id);
-            
+            stmt.executeUpdate("insert into mpierc9db.Client values(\""+c+"\", \""+fn+"\", \""+ln
+                            +"\", \""+ph+"\", \""+em+"\", \""+st+"\", \""+ci +"\");");
         }catch(SQLException e){
             System.out.println(e);
         }
     }
+    
+    public void deleteData(String table, String col, String id){ 
+        //may have to implement switch statement to figure out what table is being deleted from, and then delete dependencies
+        
+        try{
+            int r = stmt.executeUpdate("delete from mpierc9db."+table+" where "+col+" = "+ "\""+id+ "\";");
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }         
 }

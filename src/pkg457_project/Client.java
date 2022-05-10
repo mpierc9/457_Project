@@ -23,9 +23,8 @@ public class Client {
         JFrame f;
         f=new JFrame("Towson Vet Database");  
         
-        Icon icon = new ImageIcon("./logo.png");
-        JLabel logo = new JLabel(icon);
-        logo.setBounds(500, 100, 400,400);
+        JLabel logo = new JLabel("Towson Vet Database System");
+        logo.setBounds(500, 100, 350,400);
 
         
         JButton employee=new JButton("List Employees");  
@@ -63,6 +62,7 @@ public class Client {
         e.setBounds(425, 700, 150, 30);
         e.addActionListener((ActionEvent event) -> {
             f.dispose();
+            System.exit(0);
         });
         
         f.add(logo);f.add(e);
