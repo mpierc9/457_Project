@@ -3,28 +3,47 @@ package pkg457_project;
 
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.sql.*;
 import javax.swing.*;
 
         
 public class ResultGUI extends JFrame{
-    TextArea a; JButton b;
-    
+    TextArea a; JButton b;JButton c;JButton d;JButton e;
+    String s;
     ResultGUI(ResultSet rs){
         a = new TextArea(); 
         a.setBounds(10,30, 750,600);
         
-        b = new JButton("Clear Results");
-        b.setBounds(600, 700, 150, 30);
-        
-        
+        b = new JButton("Add an entry");
+        b.setBounds(800, 400, 150, 30);
+        b.addActionListener((ActionEvent event) -> {
+            new AddGUI(s);
+            dispose();
+        });
+        c = new JButton("Change an entry");
+        c.setBounds(800, 500, 150, 30);
+        c.addActionListener((ActionEvent event) -> {
+            //implement
+
+        });
+        d = new JButton("Delete an entry");
+        d.setBounds(800, 600, 150, 30);
+        d.addActionListener((ActionEvent event) -> {
+            //implement
+        });
+        e = new JButton("Exit");
+        e.setBounds(800, 700, 150, 30);
+        e.addActionListener((ActionEvent event) -> {
+            dispose();
+        });
         try{
             int r = 1;
             ResultSetMetaData rsMeta = rs.getMetaData();
             String colNames = new String();
             String entry = new String();
-            
+            s = rsMeta.getTableName(1);
             while(rs.next()){
                 for(int i = 1; i < rsMeta.getColumnCount(); i++){
                     if(i == 1){
@@ -58,7 +77,7 @@ public class ResultGUI extends JFrame{
             System.out.println(e);
         }
         
-        add(a);
+        add(a);add(b);add(c);add(d);add(e);
         setSize(1000,800);  
         setLayout(null);  
         

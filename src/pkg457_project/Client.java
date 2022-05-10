@@ -19,7 +19,7 @@ public class Client {
     public static void main(String[] args) {
         
         DB database = new DB();
-        
+ 
         JFrame f;
         f=new JFrame("Towson Vet Database");  
         
@@ -27,7 +27,6 @@ public class Client {
         JLabel logo = new JLabel(icon);
         logo.setBounds(500, 100, 400,400);
 
-        
         
         JButton employee=new JButton("List Employees");  
         employee.setBounds(650,600,150,30);  
@@ -60,8 +59,13 @@ public class Client {
             new ResultGUI(rs);
         });  
 
-  
-        f.add(logo);
+        JButton e = new JButton("Exit");
+        e.setBounds(425, 700, 150, 30);
+        e.addActionListener((ActionEvent event) -> {
+            f.dispose();
+        });
+        
+        f.add(logo);f.add(e);
         f.add(employee);f.add(client);f.add(patient);f.add(vendor);    
         f.setSize(1000,800);  
         f.setLayout(null);  
